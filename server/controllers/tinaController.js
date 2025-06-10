@@ -43,3 +43,23 @@ export const startTinaSession = async (req, res) => {
     res.status(500).json({ error: 'Failed to initialize chat session' })
   }
 }
+
+export const getTinaResponse = async (req, res) => {
+  const { userResponse } = req.body
+
+  if (!chatSession) {
+    return res.status(400).json({ error: 'Chat session not initialized' })
+  }
+  if (!userResponse) {
+    return res.status(400).json({ error: 'User response is required' })
+  }
+
+  try {
+    const result = await chatSession.sendMessage(userResponse)
+    const aiResponse = result.response.text()
+    res.json({ aiResponse })
+  } catch (error) {
+    console.error('Error in getting Tina response:', error.message)
+    res.status(500).json({ error: 'Failed to get response from Tina' })
+  }
+}
