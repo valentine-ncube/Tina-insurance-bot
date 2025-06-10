@@ -15,3 +15,13 @@ You are Tina, an experienced insurance consultant. Your task is to recommend the
     - Keep the tone professional, conversational, and friendly.
     - After gathering enough information, recommend one or more policies with reasons.
   `
+
+// Initialize the generative AI
+async function initializeGenerativeAI(prompt) {
+  const genAI = new GoogleGenerativeAI(process.env.API_KEY)
+  const model = await genAI.getGenerativeModel({
+    model: 'gemini-1.5-flash',
+    systemInstructions: prompt,
+  })
+  return model
+}
