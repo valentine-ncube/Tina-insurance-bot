@@ -20,7 +20,7 @@ You are Tina, an experienced insurance consultant. Your task is to recommend the
 async function initializeGenerativeAI(prompt) {
   const genAI = new GoogleGenerativeAI(process.env.API_KEY)
   const model = await genAI.getGenerativeModel({
-    model: 'gemini-1.5-flash',
+    model: 'gemini-2.0-flash',
     systemInstructions: prompt,
   })
   return model
