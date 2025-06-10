@@ -25,3 +25,21 @@ async function initializeGenerativeAI(prompt) {
   })
   return model
 }
+
+// Start a Tina session
+export const startTinaSession = async (req, res) => {
+  const { resetSession } = req.body
+
+  try {
+    if (!chatSession || resetSession) {
+      const model = await initializeGenerativeAI(prompt)
+      chatSession = model.startChat({ history: [] })
+    }
+    const initialResponse =
+      'Hello! I`m Tina, your insurance assistant. May I ask you a few questions to recommend the best insurance policy for you?'
+    res.join({ aiResponse: initialResponse })
+  } catch (error) {
+    console.error('Error in initializing chat session:', error.message)
+    res.status(500).json({ error: 'Failed to initialize chat session' })
+  }
+}
