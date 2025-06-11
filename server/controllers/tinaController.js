@@ -18,12 +18,24 @@ You are Tina, an experienced insurance consultant. Your task is to recommend the
 
 // Initialize the generative AI
 async function initializeGenerativeAI(prompt) {
-  const genAI = new GoogleGenerativeAI(process.env.API_KEY)
-  const model = await genAI.getGenerativeModel({
-    model: 'gemini-2.0-flash',
-    systemInstructions: prompt,
-  })
-  return model
+  try {
+    if (!process.env.API_KEY) {
+      throw new Error('API key is not set in environment variables')
+    }
+
+    const genAI = new GoogleGenerativeAI(process.env.API_KEY)
+    const model = await genAI.getGenerativeModel({
+      model: 'models/gemini-2.0-flash',
+      systemInstructions: prompt,
+    })
+    return model
+  } catch (error) {
+    console.error(
+      'Error initializing Generative AI:',
+      error.response?.data || error.message
+    )
+    throw new Error('Failed to initialize Generative AI')
+  }
 }
 
 // Start a Tina session
