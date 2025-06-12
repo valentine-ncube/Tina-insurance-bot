@@ -1,13 +1,15 @@
 import React from 'react'
 import ChatBox from './components/ChatBox'
+import styles from './App.module.css'
 
 function App() {
   return (
     <div>
-      Tina- Your Insurance Policy Assistant
+      <h2>Tina- Your Insurance Policy Assistant</h2>
       <ChatBox />
-      <footer>
-        <p>Powered by Google Generative AI</p>
+      <footer className={styles.footer}>
+        🤖 Powered by <strong>Google Gemini</strong> | Created by Valentine | ©{' '}
+        {new Date().getFullYear()}
       </footer>
     </div>
   )
