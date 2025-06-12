@@ -57,6 +57,33 @@ const ChatBox = () => {
       initializeSession()
     }
   }, [sessionInitialized])
+
+  return (
+    <div className={styles['chat-container']}>
+      <div className={styles['chat-box']}>
+        {messages.map((message, index) => (
+          <div
+            key={index}
+            className={`${styles['message']} ${
+              message.sender === 'user'
+                ? styles['user-message']
+                : styles['tina-message']
+            }`}
+          >
+            {message.text}
+          </div>
+        ))}
+      </div>
+      <div className={styles['input-area']}>
+        <textarea
+          value={userInput}
+          onChange={(e) => setUserInput(e.target.value)}
+          placeholder="Type your message here..."
+        />
+        <button onClick={handleSendMessage}>Send</button>
+      </div>
+    </div>
+  )
 }
 
 export default ChatBox
